@@ -114,6 +114,12 @@ object ZioJSONEncoderDecoders extends ZioJSONNonGenEncoderDecoders {
 }
 
 trait ZioJSONNonGenEncoderDecoders {
+  implicit val (intFE5r: JsonFieldEncoder[Int], intFD5r: JsonFieldDecoder[Int]) =
+    (new JsonFieldEncoder[Int] {
+      override def unsafeEncodeField(in: Int): String = in.toString
+    }, new JsonFieldDecoder[Int] {
+      override def unsafeDecodeField(trace: List[JsonError], in: String): Int = Integer.parseInt(in)
+    })
   implicit val (arrayOfBigDecimalsE5r: JsonEncoder[Array[BigDecimal]], arrayOfBigDecimalsD5r: JsonDecoder[Array[BigDecimal]]) =
     (arrayEncoder[BigDecimal], arrayDecoder[BigDecimal])
   implicit val (arrayOfBooleansE5r: JsonEncoder[Array[Boolean]], arrayOfBooleansD5r: JsonDecoder[Array[Boolean]]) =
@@ -177,6 +183,8 @@ trait ZioJSONNonGenEncoderDecoders {
     (arrayEncoder[ZoneOffset], arrayDecoder[ZoneOffset])
   implicit val (listOfBooleansE5r: JsonEncoder[List[Boolean]], listOfBooleansD5r: JsonDecoder[List[Boolean]]) =
     (JsonEncoder.list[Boolean], JsonDecoder.list[Boolean])
+  implicit val (mapOfIntsToBooleansE5r: JsonEncoder[Map[Int, Boolean]], mapOfIntsToBooleansD5r: JsonDecoder[Map[Int, Boolean]]) =
+    (JsonEncoder.map[Int, Boolean], JsonDecoder.map[Int, Boolean])
   implicit val (setOfIntsE5r: JsonEncoder[Set[Int]], setOfIntsD5r: JsonDecoder[Set[Int]]) =
     (JsonEncoder.set[Int], JsonDecoder.set[Int])
   implicit val (vectorOfBooleansE5r: JsonEncoder[Vector[Boolean]], vectorOfBooleansD5r: JsonDecoder[Vector[Boolean]]) =

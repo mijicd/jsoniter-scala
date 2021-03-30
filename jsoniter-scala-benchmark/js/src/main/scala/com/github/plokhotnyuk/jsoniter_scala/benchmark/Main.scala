@@ -875,7 +875,8 @@ object Main {
     GS(S("MapOfIntsToBooleansReading")(
       B("avSystemGenCodec")(benchmark.avSystemGenCodec()),
       B("circe")(benchmark.circe()),
-      B("jsoniterScala")(benchmark.jsoniterScala())
+      B("jsoniterScala")(benchmark.jsoniterScala()),
+      B("zioJson")(benchmark.zioJson())
     ))
   }, {
     val benchmark = new MapOfIntsToBooleansWriting { size = 128; setup() }
@@ -883,7 +884,8 @@ object Main {
       B("avSystemGenCodec")(benchmark.avSystemGenCodec()),
       B("circe")(benchmark.circe()),
       B("jsoniterScala")(benchmark.jsoniterScala()),
-      B("jsoniterScalaPrealloc")(benchmark.jsoniterScalaPrealloc())
+      B("jsoniterScalaPrealloc")(benchmark.jsoniterScalaPrealloc()),
+      B("zioJson")(benchmark.zioJson())
     ))
   }, {
     val benchmark = new MissingRequiredFieldsReading
